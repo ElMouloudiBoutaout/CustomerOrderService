@@ -1,28 +1,60 @@
 package com.customer.order.data;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 public class Customer {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    private String fullName;
 
-    @Column(name = "last_name")
-    private String lastName;
+    public Customer(String fullName, String email) {
+        this.fullName = fullName;
+        this.email = email;
+    }
 
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private List<Order> orders;
+    @OneToMany(fetch=FetchType.LAZY)
+    private List<CustomerOrder> customerOrders;
 
+    public Customer() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<CustomerOrder> getOrders() {
+        return customerOrders;
+    }
+
+    public void setOrders(List<CustomerOrder> customerOrders) {
+        this.customerOrders = customerOrders;
+    }
 }

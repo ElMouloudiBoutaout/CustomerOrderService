@@ -1,9 +1,7 @@
 package com.customer.order.common;
 
-import com.customer.order.data.OrderStatus;
-
 public class InvalidOrderStatusException extends RuntimeException {
-    public InvalidOrderStatusException(OrderStatus status) {
+    public InvalidOrderStatusException(String status) {
         super("Invalid order status: " + status);
     }
 }

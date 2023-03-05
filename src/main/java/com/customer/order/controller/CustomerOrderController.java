@@ -1,10 +1,10 @@
 package com.customer.order.controller;
 
-import com.customer.order.common.InvalidOrderStatusException;
-import com.customer.order.common.OrderNotFoundException;
-import com.customer.order.data.Order;
-import com.customer.order.data.OrderStatus;
+import com.customer.order.common.OrderStatusDto;
+import com.customer.order.data.CustomerOrder;
 import com.customer.order.service.CustomerOrderServiceInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/orders")
 public class CustomerOrderController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerOrderController.class);
 
     private final CustomerOrderServiceInterface orderService;
 
@@ -21,15 +23,10 @@ public class CustomerOrderController {
     }
 
     @PutMapping("/{orderId}/status")
-    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long orderId, @RequestBody OrderStatus newStatus) {
-        try {
-            Order order = orderService.updateOrderStatus(orderId, newStatus);
-            return ResponseEntity.ok(order);
-        } catch (OrderNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (InvalidOrderStatusException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<CustomerOrder> updateOrderStatus(@PathVariable Long orderId, @RequestBody OrderStatusDto newStatus) {
+            logger.info("Order status update is being invoked ");
+            CustomerOrder customerOrder = orderService.updateOrderStatus(orderId, newStatus.orderStatus);
+            return ResponseEntity.ok(customerOrder);
     }
 
 }

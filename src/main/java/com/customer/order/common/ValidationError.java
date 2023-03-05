@@ -1,4 +1,4 @@
-package com.customer.order.controller;
+package com.customer.order.common;
 
 import java.util.List;
 

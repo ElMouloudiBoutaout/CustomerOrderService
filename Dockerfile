@@ -1,5 +1,5 @@
-FROM adoptopenjdk:17-jre-hotspot
-COPY ./target/myapp.jar /usr/app/
+FROM openjdk:17-alpine
+COPY ./target/customerOrder-0.0.1-SNAPSHOT.jar /usr/app/
 WORKDIR /usr/app
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "myapp.jar"]
+ENTRYPOINT ["java", "-jar", "customerOrder-0.0.1-SNAPSHOT.jar"]

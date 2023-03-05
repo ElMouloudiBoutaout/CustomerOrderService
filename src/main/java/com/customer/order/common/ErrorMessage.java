@@ -1,4 +1,4 @@
-package com.customer.order.controller;
+package com.customer.order.common;
 
 public class ErrorMessage {
     private String message;
